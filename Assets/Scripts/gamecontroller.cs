@@ -6,12 +6,13 @@ using UnityEngine.UI;
 public class gamecontroller : MonoBehaviour {
     [Range (0f,0.20f)]
     public float parallaxSpeed = 0.02f;
+    public GameObject UIIdle;
     public RawImage background;
     public RawImage platform;
 
     public enum GameState { Idle, Playing };
     public GameState gameState = GameState.Idle;
-
+    public GameObject player;
 
 	// Use this for initialization
 	void Start () {
@@ -23,6 +24,8 @@ public class gamecontroller : MonoBehaviour {
         //Empieza el juego
         if (gameState == GameState.Idle && (Input.GetKeyDown("up") || Input.GetMouseButtonDown(0))) {
             gameState = GameState.Playing;
+            UIIdle.SetActive(false);
+            player.SendMessage("UpdateState", "PlayerRun");
         }else if(gameState==GameState.Playing){
             Parallax();
        }        
